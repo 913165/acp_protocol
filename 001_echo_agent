@@ -1,3 +1,17 @@
+```python
+@server.agent()
+async def echo1(
+    input: list[Message], context: Context
+) -> AsyncGenerator[RunYield, RunYieldResume]:
+    """Echoes everything"""
+    for message in input:
+        await asyncio.sleep(0.5)
+        yield {"thought": "I should echo everything"}
+        await asyncio.sleep(0.5)
+        yield message
+```python
+
+server.run()
 The selected code defines an asynchronous agent function named `echo1` using the `@server.agent()` decorator from the `acp_sdk` library. This decorator registers the function as an agent with the `Server` instance, making it accessible as a REST endpoint.
 
 ```python
