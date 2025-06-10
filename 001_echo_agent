@@ -1,0 +1,23 @@
+The selected code defines an asynchronous agent function named `echo1` using the `@server.agent()` decorator from the `acp_sdk` library. This decorator registers the function as an agent with the `Server` instance, making it accessible as a REST endpoint.
+
+```python
+@server.agent()
+async def echo1(input: list[Message], context: Context)
+```
+The function `echo1` takes two parameters: `input`, which is a list of `Message` objects, and `context`, which provides contextual information about the agent's execution. The function is asynchronous and returns an `AsyncGenerator` that yields `RunYield` and `RunYieldResume` objects.
+
+Inside the function, a `for` loop iterates over each `Message` object in the `input` list. For each message, the function performs two asynchronous operations using `asyncio.sleep(0.5)` to introduce a delay of 0.5 seconds.
+
+```python
+await asyncio.sleep(0.5)
+yield {"thought": "I should echo everything"}
+```
+The first operation yields a dictionary containing a "thought" message, simulating the agent's internal reasoning or response.
+
+```python
+await asyncio.sleep(0.5)
+yield message
+```
+The second operation yields the original `Message` object, effectively echoing the input back to the caller.
+
+This agent function is designed to process input messages asynchronously, introduce delays for simulated processing, and return both intermediate thoughts and the original input. The `server.run()` call at the end of the file starts the server, making the `echo1` agent available for interaction.
